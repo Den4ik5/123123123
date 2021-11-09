@@ -1,0 +1,42 @@
+:host(.app) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.content {
+  height: 100%;
+  &__form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    &-item {
+      padding: 5px;
+      margin: 5px;
+    }
+    &-error {
+      padding-left: 10px;
+    }
+  }
+
+  &__comments {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    &-filters {
+      & span {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+button:disabled {
+  border: 2px solid red;
+}

@@ -1,0 +1,8 @@
+<span>{{comment?.name | uppercase}}</span>
+<span>{{comment?.price | number: '1.2-2'}}</span>
+<span>{{comment?.currency}}
+  <span *ngIf="comment?.currency === 'usd'">$</span>
+  <span *ngIf="comment?.currency === 'eur'">€</span>
+  <span *ngIf="comment?.currency === 'rub'">₽</span>
+</span>
+<span>{{comment?.date | dateTransform}}</span>
