@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CommentsService} from "../services/comments.service";
 import {Comment} from "../comment/comment.component";
+import {UsersService} from "../services/usersService";
+import {User} from "../models/User";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,7 @@ import {Comment} from "../comment/comment.component";
     class: 'app'
   }
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Lab4';
   filtersForm: FormGroup;
   search: string = '';
@@ -20,13 +22,14 @@ export class AppComponent {
 
   constructor(
     private commentService: CommentsService,
+    private usersService: UsersService,
   ) {
     this.filtersForm = new FormGroup({
       name: new FormControl('DENIS', [
         Validators.required,
         Validators.pattern('[A-Z ]*')
       ]),
-      date: new FormControl('09/03/2000', [
+      surname: new FormControl('09/03/2000', [
         Validators.required,
         Validators.pattern('[0-3][0-9]/[0-1][0-9]/[1-2][0-9][0-9][0-9]')
       ]),
@@ -43,6 +46,10 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+    this.getAllUsers();
+  }
+
   addToTheCommentsList() {
     console.log(this.filtersForm.getRawValue());
     this.commentService.addComment(
@@ -54,4 +61,23 @@ export class AppComponent {
       )
     )
   }
+
+  getAllUsers(){
+    this.usersService.getAllUsers().subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  createUser(){
+    const user = new User(
+      null,
+      this.filtersForm.getRawValue().surname,
+      this.filtersForm.getRawValue().name,
+    );
+  }
+  editUser(){
+
+  }
+
+
 }
